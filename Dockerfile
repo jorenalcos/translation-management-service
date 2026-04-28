@@ -24,9 +24,9 @@ COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 
 COPY composer.json composer.lock ./
 RUN if [ "$INSTALL_DEV" = "true" ]; then \
-        composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader --no-scripts; \
+        composer install --prefer-dist --no-interaction --no-progress --no-scripts --no-autoloader; \
     else \
-        composer install --prefer-dist --no-dev --no-interaction --no-progress --optimize-autoloader --no-scripts; \
+        composer install --prefer-dist --no-dev --no-interaction --no-progress --no-scripts --no-autoloader; \
     fi
 
 COPY . .
