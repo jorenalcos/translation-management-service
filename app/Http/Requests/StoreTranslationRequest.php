@@ -36,4 +36,17 @@ class StoreTranslationRequest extends FormRequest
             'tags.*' => 'string|max:64',
         ];
     }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->filled('key') && $this->filled('translation_key_id')) {
+                $validator->errors()->add('translation_key_id', 'Provide either key or translation_key_id, not both.');
+            }
+
+            if ($this->filled('locale') && $this->filled('locale_id')) {
+                $validator->errors()->add('locale_id', 'Provide either locale or locale_id, not both.');
+            }
+        });
+    }
 }
